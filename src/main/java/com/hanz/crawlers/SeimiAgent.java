@@ -57,7 +57,7 @@ public class SeimiAgent extends BaseSeimiCrawler {
                         , "getTitle")
                         .useSeimiAgent()
                         .setHttpMethod(HttpMethod.POST)
-                        .setSeimiAgentRenderTime(5000);
+                        .setSeimiAgentRenderTime(3000);
                 seimiRequests.add(seimiAgentReq);
             }
             for(Request seimi:seimiRequests){

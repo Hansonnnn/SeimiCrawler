@@ -20,11 +20,13 @@ import java.util.List;
 @Crawler(name="seimiagent")
 public class SeimiAgent extends BaseSeimiCrawler {
 
-   // @Value("${seimiAgentHost}")
-    private String seimiAgentHost="192.168.0.122";
+    @Value("${seimiAgentHost}")
+    private String seimiAgentHost;
 
-    //@Value("${seimiAgentPort}")
-    private int seimiAgentPort=8000;
+    @Value("${seimiAgentPort}")
+    private int seimiAgentPort;
+
+    private List<Object>urls=new ArrayList<Object>();
 
     //@Override
     public String[] startUrls() {
@@ -44,17 +46,20 @@ public class SeimiAgent extends BaseSeimiCrawler {
 
     public void start(Response response) {
         JXDocument doc = response.document();
-        List<Object> urls=new ArrayList<Object>();
+        List<Request> seimiRequests=new ArrayList<Request>();
         String xPath="//div[@id='topsOfRecommend']/div[@class='box item']/div[@class='box-aw']/header/a/@href";
         try {
             urls.addAll(doc.sel(xPath));
             int pageNum=50;
             for (int i = 2; i < pageNum; i++) {
-                Request seimiAgentReq = Request.build("https://www.oschina.net/action/ajax/get_more_recommend_blog?classification=0&p="+i, "getTitle")
+                Request seimiAgentReq = Request.build("https://www.oschina.net/action/ajax/get_more_recommend_blog?classification=0&p="+i
+                        , "getTitle")
                         .useSeimiAgent()
-                        //设置全部load完成后给SeimiAgent多少时间用于执行js并渲染页面，单位为毫秒
                         .setSeimiAgentRenderTime(5000);
-                push(seimiAgentReq);
+                seimiRequests.add(seimiAgentReq);
+            }
+            for(Request seimi:seimiRequests){
+                push(seimi);
             }
         }catch(Exception e){
             logger.error("error{}",e.getMessage());
@@ -62,12 +67,24 @@ public class SeimiAgent extends BaseSeimiCrawler {
 
     }
 
+
+    public void getContent(Response response){
+        JXDocument doc = response.document();
+        try {
+            logger.info("title:{} {} {} ", response.getUrl(), doc.sel("//div[@class='title']/text()"), doc.sel("//div[@class='blog-body']/textarea/text()"));
+        }catch(Exception e){
+            logger.error("error title:{}",e.getMessage());
+        }
+    }
+
+
     public void getTitle(Response response){
         JXDocument doc = response.document();
         String xPath="//header/a/@href";
         try {
-            List<Object> urls = doc.sel(xPath);
+            urls.addAll(doc.sel(xPath));
             logger.info("urls {}", urls.size());
+
             for(Object s:urls){
                 System.out.println(s);
             }

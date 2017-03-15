@@ -56,6 +56,8 @@ public class SeimiAgent extends BaseSeimiCrawler {
                 Request seimiAgentReq = Request.build("https://www.oschina.net/action/ajax/get_more_recommend_blog?classification=0&p="+i
                         , "getTitle")
                         .useSeimiAgent()
+                        .setUrl("https://www.oschina.net/action/ajax/get_more_recommend_blog?classification=0&p="+i)
+                        //.setCallBack("getTitle")
                         .setHttpMethod(HttpMethod.POST)
                         .setSeimiAgentRenderTime(3000);
                 seimiRequests.add(seimiAgentReq);

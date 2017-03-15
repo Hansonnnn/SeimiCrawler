@@ -3,6 +3,7 @@ package com.hanz.crawlers;
 import cn.wanghaomiao.seimi.annotation.Crawler;
 import cn.wanghaomiao.seimi.core.SeimiCrawler;
 import cn.wanghaomiao.seimi.def.BaseSeimiCrawler;
+import cn.wanghaomiao.seimi.http.HttpMethod;
 import cn.wanghaomiao.seimi.http.SeimiAgentContentType;
 import cn.wanghaomiao.seimi.struct.Request;
 import cn.wanghaomiao.seimi.struct.Response;
@@ -55,6 +56,7 @@ public class SeimiAgent extends BaseSeimiCrawler {
                 Request seimiAgentReq = Request.build("https://www.oschina.net/action/ajax/get_more_recommend_blog?classification=0&p="+i
                         , "getTitle")
                         .useSeimiAgent()
+                        .setHttpMethod(HttpMethod.POST)
                         .setSeimiAgentRenderTime(5000);
                 seimiRequests.add(seimiAgentReq);
             }

@@ -16,9 +16,8 @@ import java.util.List;
 
 /**
  * Created by smith on 2017/3/14.
- *
  */
-@Crawler(name="seimiagent")
+@Crawler(name = "seimiagent")
 public class SeimiAgent extends BaseSeimiCrawler {
 
     @Value("${seimiAgentHost}")
@@ -30,7 +29,7 @@ public class SeimiAgent extends BaseSeimiCrawler {
     @Autowired
     private CrawlerDao crawlerDao;
 
-    private List<Object>urls=new ArrayList<Object>();
+    private List<Object> urls = new ArrayList<Object>();
 
     //@Override
     public String[] startUrls() {
@@ -50,58 +49,73 @@ public class SeimiAgent extends BaseSeimiCrawler {
 
     public void start(Response response) {
         JXDocument doc = response.document();
-        List<Request> seimiRequests=new ArrayList<Request>();
-        String xPath="//div[@id='topsOfRecommend']/div[@class='box item']/div[@class='box-aw']/header/a/@href";
+        List<Request> seimiRequests = new ArrayList<Request>();
+        String xPath = "//div[@id='topsOfRecommend']/div[@class='box item']/div[@class='box-aw']/header/a/@href";
         try {
             urls.addAll(doc.sel(xPath));
-            int pageNum=50;
+            int pageNum = 50;
             for (int i = 2; i < pageNum; i++) {
-                Request seimiAgentReq = Request.build("https://www.oschina.net/action/ajax/get_more_recommend_blog?classification=0&p="+i
+                Request seimiAgentReq = Request.build("https://www.oschina.net/action/ajax/get_more_recommend_blog?classification=0&p=" + i
                         , "getTitle")
                         .useSeimiAgent()
-                        .setUrl("https://www.oschina.net/action/ajax/get_more_recommend_blog?classification=0&p="+i)
+                        .setUrl("https://www.oschina.net/action/ajax/get_more_recommend_blog?classification=0&p=" + i)
                         //.setCallBack("getTitle")
                         .setHttpMethod(HttpMethod.POST)
                         .setSeimiAgentRenderTime(3000);
                 seimiRequests.add(seimiAgentReq);
             }
-            for(Request seimi:seimiRequests){
+            for (Request seimi : seimiRequests) {
                 push(seimi);
             }
-        }catch(Exception e){
-            logger.error("error{}",e.getMessage());
+        } catch (Exception e) {
+            logger.error("error{}", e.getMessage());
         }
 
     }
 
+    /**
+     * 获取文章标题与文章内容
+     *
+     * @param response
+     */
 
-    public void getContent(Response response){
+    public void getContent(Response response) {
         JXDocument doc = response.document();
         try {
             logger.info("title:{} {} {} ", response.getUrl(), doc.sel("//div[@class='title']/text()"), doc.sel("//div[@class='blog-body']/textarea/text()"));
 
-            Article article=new Article();
+            String title = doc.sel("//div[@class='title']/text()").toString();
+            String content = doc.sel("//div[@class='blog-body']/textarea/text()").toString();
+
+            Article article = new Article();
+            article.setContent(content);
+            article.setTitle(title);
             article.setUrl(response.getUrl());
+
             crawlerDao.save(article);
 
-        }catch(Exception e){
-            logger.error("error title:{}",e.getMessage());
+        } catch (Exception e) {
+            logger.error("error title:{}", e.getMessage());
         }
     }
 
+    /**
+     * 获取动态渲染页面url
+     *
+     * @param response
+     */
 
-    public void getTitle(Response response){
+    public void getTitle(Response response) {
         JXDocument doc = response.document();
-        String xPath="//header/a/@href";
+        String xPath = "//header/a/@href";
         try {
             urls.addAll(doc.sel(xPath));
             logger.info("urls {}", urls.size());
 
-            for(Object s:urls){
-                Request req=Request.build(s.toString(),"getContent");
+            for (Object s : urls) {
+                Request req = Request.build(s.toString(), "getContent");
                 push(req);
             }
-            //do something
         } catch (Exception e) {
             e.printStackTrace();
         }

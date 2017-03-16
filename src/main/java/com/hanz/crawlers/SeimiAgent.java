@@ -1,14 +1,14 @@
 package com.hanz.crawlers;
 
 import cn.wanghaomiao.seimi.annotation.Crawler;
-import cn.wanghaomiao.seimi.core.SeimiCrawler;
 import cn.wanghaomiao.seimi.def.BaseSeimiCrawler;
 import cn.wanghaomiao.seimi.http.HttpMethod;
-import cn.wanghaomiao.seimi.http.SeimiAgentContentType;
 import cn.wanghaomiao.seimi.struct.Request;
 import cn.wanghaomiao.seimi.struct.Response;
 import cn.wanghaomiao.xpath.model.JXDocument;
-import org.springframework.beans.factory.ObjectFactory;
+import com.hanz.dao.CrawlerDao;
+import com.hanz.model.Article;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 import java.util.ArrayList;
@@ -26,6 +26,9 @@ public class SeimiAgent extends BaseSeimiCrawler {
 
     @Value("${seimiAgentPort}")
     private int seimiAgentPort;
+
+    @Autowired
+    private CrawlerDao crawlerDao;
 
     private List<Object>urls=new ArrayList<Object>();
 
@@ -76,6 +79,11 @@ public class SeimiAgent extends BaseSeimiCrawler {
         JXDocument doc = response.document();
         try {
             logger.info("title:{} {} {} ", response.getUrl(), doc.sel("//div[@class='title']/text()"), doc.sel("//div[@class='blog-body']/textarea/text()"));
+
+            Article article=new Article();
+            article.setUrl(response.getUrl());
+            crawlerDao.save(article);
+
         }catch(Exception e){
             logger.error("error title:{}",e.getMessage());
         }
@@ -90,7 +98,8 @@ public class SeimiAgent extends BaseSeimiCrawler {
             logger.info("urls {}", urls.size());
 
             for(Object s:urls){
-                System.out.println(s);
+                Request req=Request.build(s.toString(),"getContent");
+                push(req);
             }
             //do something
         } catch (Exception e) {

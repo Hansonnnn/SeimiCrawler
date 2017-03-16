@@ -1,5 +1,6 @@
 package com.hanz.model;
 
+import cn.wanghaomiao.seimi.annotation.Xpath;
 import lombok.Data;
 
 /**
@@ -9,8 +10,13 @@ import lombok.Data;
 
 
     private int id;
+
     private String url;
+
+    @Xpath("//div[@class='title']/text()")
     private String title;
+
+    @Xpath("//div[@class='blog-body']/textarea/text()")
     private String Content;
 
 

@@ -48,22 +48,16 @@ public class SeimiAgent extends BaseSeimiCrawler {
 
     public void start(Response response) {
         JXDocument doc = response.document();
-        List<Request> seimiRequests = new ArrayList<Request>();
         String xPath = "//div[@id='topsOfRecommend']/div[@class='box item']/div[@class='box-aw']/header/a/@href";
         try {
             urls.addAll(doc.sel(xPath));
             int pageNum = 50;
             for (int i = 2; i < pageNum; i++) {
                 Request seimiAgentReq = Request.build("https://www.oschina.net/action/ajax/get_more_recommend_blog?classification=0&p=" + i
-                        , "getTitle")
-                        .useSeimiAgent()
-                        .setUrl("https://www.oschina.net/action/ajax/get_more_recommend_blog?classification=0&p=" + i)
-                        .setSeimiAgentRenderTime(3000);
-                seimiRequests.add(seimiAgentReq);
+                        , "getTitle");
+                push(seimiAgentReq);
             }
-            for (Request seimi : seimiRequests) {
-                push(seimi);
-            }
+
         } catch (Exception e) {
             logger.error("error{}", e.getMessage());
         }

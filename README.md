@@ -1,4 +1,12 @@
 # SeimiCrawler
-该项目分别实现了静态页面爬取与动态渲染页面爬取,在这里使用了爬虫框架 `SeimiCrawler`。
-以下是该开源框架仓库地址：
+
+本项目是基于开源框架`SeimiCrawler`实现的静态页面及动态渲染页面爬取的DEMO。关于该框架的完整内容请参考：
+
 https://github.com/zhegexiaohuozi/SeimiCrawler
+
+以下是简单的测试结果：
+
+![image](images/271159351765458898.png)
+
+![image](images/486748473826304702.png)
+

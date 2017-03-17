@@ -9,6 +9,7 @@ import cn.wanghaomiao.xpath.model.JXDocument;
 import java.util.List;
 
 /**
+ *静态压面爬取
  * Created by smith on 2017/3/13.
  */
 @Crawler(name = "basic")

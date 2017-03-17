@@ -38,6 +38,8 @@ public class Basic extends BaseSeimiCrawler {
             e.printStackTrace();
         }
     }
+
+
     public void getTitle(Response response){
         JXDocument doc = response.document();
         try {
@@ -48,6 +50,8 @@ public class Basic extends BaseSeimiCrawler {
             e.printStackTrace();
         }
     }
+
+
     public void getContent(Response response){
         JXDocument doc=response.document();
         try{

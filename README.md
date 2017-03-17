@@ -6,7 +6,7 @@ https://github.com/zhegexiaohuozi/SeimiCrawler
 
 以下是简单的测试结果：
 
-![image](images/271159351765458898.png)
+![image](images/1.png)
 
-![image](images/486748473826304702.png)
+![image](images/2.png)
 

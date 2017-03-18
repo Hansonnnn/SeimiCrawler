@@ -5,9 +5,9 @@ https://github.com/zhegexiaohuozi/SeimiCrawler
 
 ## 运行结果
 
-![image](/SeimiCrawler/images/ceshi.jpg)
+![image](images/ceshi.jpg)
 
 
 ## 数据库持久化
 
-![image](/SeimiCrawler/images/shujuku.png)
+![image](images/shujuku.png)

@@ -881,7 +881,7 @@
       <workItem from="1489721466764" duration="696000" />
       <workItem from="1489723186340" duration="130000" />
       <workItem from="1489745657798" duration="5729000" />
-      <workItem from="1489812849055" duration="10000" />
+      <workItem from="1489812849055" duration="32000" />
     </task>
     <task id="LOCAL-00001" summary="SeimiCrawler">
       <created>1489545171186</created>
@@ -981,11 +981,18 @@
       <option name="project" value="LOCAL" />
       <updated>1489746239911</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="SeimiCrawler">
+      <created>1489812883624</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1489812883624</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="54604000" />
+    <option name="totallyTimeSpent" value="54626000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1932" height="1048" extended-state="0" />

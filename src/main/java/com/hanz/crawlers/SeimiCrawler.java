@@ -66,20 +66,34 @@ public class SeimiCrawler extends BaseSeimiCrawler {
     }
 
     /**
-     *
+     *获取文章的标题及文本
      *
      * @param response
      */
 
     public void getContent(Response response) {
         JXDocument doc = response.document();
-
+        String title = "";
+        String content = "";
         try {
             logger.info("urls {}", doc.sel("//div[@class='title']/h2/text()"));
-            String title = doc.sel("//div[@class='title']/h2/text()").toString();
-            String Content = doc.sel("//div[@class='artDet']/p/text()").toString();
-            FileUtils.writeToFile(title,FILE_PATH,Content);
 
+            /** 定义多种不同的xpath解析方式应对不同的页面结构*/
+
+            String xpath1_title = "//div[@class='title']/h2/text()";
+            String xpath2_title = "//div[@class='clearfix w1000_320 text_title']/h1/text()";
+            String xpath2_content = "//div[@class='box_con']/p/text()";
+            String xpath1_content = "//div[@class='artDet']/p/text()";
+
+            if(doc.sel(xpath1_title)==null||doc.sel(xpath1_title).size()==0){
+                title = doc.sel(xpath2_title).toString();
+                content = doc.sel(xpath2_content).toString();
+            }else{
+                title = doc.sel(xpath1_title).toString();
+                content = doc.sel(xpath1_content).toString();
+            }
+
+            FileUtils.writeToFile(title,FILE_PATH,content);
 
         } catch (Exception e) {
             logger.error("error :{}", e.getMessage());
@@ -88,7 +102,7 @@ public class SeimiCrawler extends BaseSeimiCrawler {
 
     /**
      *
-     *
+     *获取第一层页面中所有的文章链接
      * @param response
      */
 

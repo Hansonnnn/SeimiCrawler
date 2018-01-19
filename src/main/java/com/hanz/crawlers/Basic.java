@@ -15,11 +15,11 @@ import java.util.List;
 @Crawler(name = "basic")
 public class Basic extends BaseSeimiCrawler {
 
-    //@Override
+    @Override
     public String[] startUrls() {
         return new String[]{"https://www.oschina.net/blog/"};
     }
-    //@Override
+    @Override
     public void start(Response response) {
         JXDocument doc = response.document();
         try {

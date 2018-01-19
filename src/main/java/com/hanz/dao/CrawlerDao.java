@@ -12,7 +12,7 @@ import org.apache.ibatis.annotations.Param;
 
 
 public interface CrawlerDao {
-    @Insert("insert into seimi (S_TITLE,S_CONTENT,S_URL) values (#{article.title},#{article.Content},#{article.url})")
+    @Insert("insert into nuinformation (TITLE,CONTENT,URL) values (#{article.title},#{article.Content},#{article.url})")
     @Options(useGeneratedKeys = true, keyProperty = "article.id")
     int save(@Param("article")Article article);
 }

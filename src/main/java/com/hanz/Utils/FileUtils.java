@@ -17,7 +17,18 @@ public class FileUtils {
             }
             FileWriter  out=new FileWriter(file,true);
             BufferedWriter bw= new BufferedWriter(out);
-            bw.write("{title:"+FileName+",content:"+content+"}");
+            StringBuffer sb = new StringBuffer();
+            sb.append("{");
+            sb.append(""+""+""+"title"+"");
+            sb.append(""+":"+"");
+            sb.append(""+FileName+"");
+            sb.append(""+","+"");
+            sb.append(""+"content"+"");
+            sb.append(""+":"+"");
+            sb.append(""+content+"");
+            bw.write(sb.toString());
+            sb.append("}");
+//            bw.write("{"+""title""+":"+""+FileName+"","content"+":"+""+content+"""}");
             bw.newLine();
             bw.flush();
             bw.close();

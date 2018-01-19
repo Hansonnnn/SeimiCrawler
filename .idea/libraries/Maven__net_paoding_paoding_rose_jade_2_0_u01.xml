@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: net.paoding:paoding-rose-jade:2.0.u01">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/mavenRepo/net/paoding/paoding-rose-jade/2.0.u01/paoding-rose-jade-2.0.u01.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/mavenRepo/net/paoding/paoding-rose-jade/2.0.u01/paoding-rose-jade-2.0.u01-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/mavenRepo/net/paoding/paoding-rose-jade/2.0.u01/paoding-rose-jade-2.0.u01-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

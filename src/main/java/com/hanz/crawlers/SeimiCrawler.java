@@ -33,7 +33,7 @@ public class SeimiCrawler extends BaseSeimiCrawler {
 
     public static String FILE_PATH="/Users/hanzhao/Downloads/crawl/";
 
-    //@Override
+    @Override
     public String[] startUrls() {
         return new String[]{"http://health.people.com.cn/GB/373271/404183/"};
     }
@@ -92,8 +92,14 @@ public class SeimiCrawler extends BaseSeimiCrawler {
                 title = doc.sel(xpath1_title).toString();
                 content = doc.sel(xpath1_content).toString();
             }
+            Article article = new Article();
+            article.setContent(content);
+            article.setTitle(title);
+            article.setUrl(response.getUrl());
 
-            FileUtils.writeToFile(title,FILE_PATH,content);
+            crawlerDao.save(article);
+
+//            FileUtils.writeToFile(title,FILE_PATH,content);
 
         } catch (Exception e) {
             logger.error("error :{}", e.getMessage());

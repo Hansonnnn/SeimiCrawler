@@ -5,7 +5,6 @@ import cn.wanghaomiao.seimi.def.BaseSeimiCrawler;
 import cn.wanghaomiao.seimi.struct.Request;
 import cn.wanghaomiao.seimi.struct.Response;
 import cn.wanghaomiao.xpath.model.JXDocument;
-import com.hanz.Utils.FileUtils;
 import com.hanz.dao.CrawlerDao;
 import com.hanz.model.Article;
 import org.springframework.beans.factory.annotation.Autowired;
